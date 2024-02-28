@@ -7,5 +7,7 @@ public class Main {
         System.out.println("It works!");
         System.out.println("Hello Team");
         System.out.println("It's difficult to understand what to do");
+
+        System.out.println("Пусть у всех получится выучить java");
     }
 }
