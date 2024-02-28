@@ -9,5 +9,7 @@ public class Main {
         System.out.println("Пусть у всех получится выучить java");
         System.out.println("hello_everyone!");
         System.out.println("It's difficult to understand what to do");
+
+        System.out.println("Something else");
     }
 }
