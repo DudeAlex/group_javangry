@@ -1,7 +1,5 @@
 import org.testng.annotations.Test;
 
-
-
 public class FirstTest {
     // Нажмите на пуск программы!
     @Test
