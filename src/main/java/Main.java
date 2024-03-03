@@ -10,5 +10,6 @@ public class Main {
         System.out.println("hello_everyone!");
         System.out.println("It's difficult to understand what to do");
         System.out.println("Nice to meet you");
+        System.out.println("New Hello");
     }
 }
