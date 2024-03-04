@@ -15,8 +15,8 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <org.testng>7.9.0</org.testng>
-        <selenium>4.18.1</selenium>
         <junit>5.10.2</junit>
+        <selenium>4.18.1</selenium>
     </properties>
 
     <dependencies>
@@ -43,10 +43,8 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.18.1</version>
+            <version>${selenium}</version>
         </dependency>
     </dependencies>
-
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 
 </project>
