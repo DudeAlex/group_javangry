@@ -1,4 +1,4 @@
-package vikaRabchun;
+package rabchun;
 
 public class Main {
     public static void main(String[] args) {
