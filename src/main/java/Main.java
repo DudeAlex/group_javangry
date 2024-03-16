@@ -11,5 +11,6 @@ public class Main {
         System.out.println("It's difficult to understand what to do");
         System.out.println("Nice to meet you");
         System.out.println("New Hello");
+        System.out.println("Hello idea git");
     }
 }
