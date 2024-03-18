@@ -12,6 +12,6 @@ class CustomStringFormatTest {
 
         String upperCaseString = CustomStringFormat.getUpperCaseString(beforeFormat);
         assertEquals("GAME OVER!", upperCaseString); // Passed test
-        assertEquals("Game over!", upperCaseString); // Failed test
+        assertNotEquals("Game over!", upperCaseString); // Failed test
     }
 }
