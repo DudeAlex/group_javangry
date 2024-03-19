@@ -62,7 +62,7 @@ public class JavAngryTest {
 
 
     @Test
-    void testSomething() {
+    void testAlert() {
         webDriver.get("https://demoqa.com/");
         webDriver.findElement(By.xpath("//h5[text()='Alerts, Frame & Windows']")).click();
         webDriver.findElement(By.xpath("//span[text()='Alerts']")).click();
