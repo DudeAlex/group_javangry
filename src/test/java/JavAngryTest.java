@@ -1,3 +1,4 @@
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -57,5 +58,19 @@ public class JavAngryTest {
         String text = webDriver.findElement(By.xpath("//span[@class='text-success']")).getText();
 
         Assert.assertEquals(text, "Yes");
+    }
+
+
+    @Test
+    void testAlert() {
+        webDriver.get("https://demoqa.com/");
+        webDriver.findElement(By.xpath("//h5[text()='Alerts, Frame & Windows']")).click();
+        webDriver.findElement(By.xpath("//span[text()='Alerts']")).click();
+        webDriver.findElement(By.xpath("//*[@id='alertButton']")).click();
+
+        Alert alert = webDriver.switchTo().alert();
+        String text = alert.getText();
+        Assert.assertEquals("You clicked a button", text);
+
     }
 }
