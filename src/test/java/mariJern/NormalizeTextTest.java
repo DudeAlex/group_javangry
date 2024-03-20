@@ -2,10 +2,10 @@ package mariJern;
 
 import org.junit.Assert;
 import org.junit.Test;
+
 import static mariJern.Main.normalizeText;
 
 public class NormalizeTextTest {
-
 
     @Test
     public void test() {

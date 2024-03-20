@@ -16,12 +16,4 @@ public class Main {
         return Normalizer.normalize(str, Normalizer.Form.NFD)
                 .replaceAll("[^\\p{ASCII}]", "");
     }
-    public static void main(String[] args) {
-
-
-
-        System.out.println(getUpperCaseString(happy));
-
-
-    }
 }
