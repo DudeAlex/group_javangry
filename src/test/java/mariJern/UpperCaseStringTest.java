@@ -17,8 +17,6 @@ public class UpperCaseStringTest {
                 BUT WHEN YOU WORRY YOU MAKE IT DOUBLE
                 DON'T WORRY
                 BE HAPPY =)""", getUpperCaseString(happy));
-
-
     }
 }
 
