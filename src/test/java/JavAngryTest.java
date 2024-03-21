@@ -3,6 +3,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -11,6 +12,8 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 public class JavAngryTest {
+    private final static String URL = "https://demoqa.com/";
+
     private WebDriver webDriver;
 
     @BeforeTest
@@ -26,7 +29,7 @@ public class JavAngryTest {
     @Test
     void testElementsTextBoxValidData() {
         String expectedResult = "Name:Maksim Email:Maksim@test.com Current Address :Saint-Petersburg";
-        webDriver.get("https://demoqa.com/");
+        webDriver.get(URL);
         webDriver.findElement(By.xpath("//h5[text()='Elements']")).click();
         webDriver.findElement(By.xpath("//span[text()='Text Box']")).click();
         webDriver.findElement(By.xpath("//input[@id='userName']")).
@@ -51,7 +54,7 @@ public class JavAngryTest {
 
     @Test
     void testRadioButtonYes() {
-        webDriver.get("https://demoqa.com/");
+        webDriver.get(URL);
         webDriver.findElement(By.xpath("//h5[text()='Elements']")).click();
         webDriver.findElement(By.xpath("//span[text()='Radio Button']")).click();
         webDriver.findElement(By.xpath("//label[text()='Yes']")).click();
@@ -63,7 +66,7 @@ public class JavAngryTest {
 
     @Test
     void testAlert() {
-        webDriver.get("https://demoqa.com/");
+        webDriver.get(URL);
         webDriver.findElement(By.xpath("//h5[text()='Alerts, Frame & Windows']")).click();
         webDriver.findElement(By.xpath("//span[text()='Alerts']")).click();
         webDriver.findElement(By.xpath("//*[@id='alertButton']")).click();
@@ -71,6 +74,21 @@ public class JavAngryTest {
         Alert alert = webDriver.switchTo().alert();
         String text = alert.getText();
         Assert.assertEquals("You clicked a button", text);
+    }
+    @Test
+    void testDoubleClickButton() {
+        String expectedText = "You have done a double click";
 
+        webDriver.get(URL);
+
+        webDriver.findElement(By.xpath("//h5[text()='Elements']")).click();
+        webDriver.findElement(By.xpath("//span[text() = 'Buttons']")).click();
+        WebElement clickable = webDriver.findElement(By.id("doubleClickBtn"));
+        new Actions(webDriver)
+                .doubleClick(clickable)
+                .perform();
+        String actualText = webDriver.findElement(By.id("doubleClickMessage")).getText();
+
+        Assert.assertEquals(actualText, expectedText);
     }
 }
