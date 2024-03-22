@@ -8,6 +8,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
+
 public class widgetsQATesting {
     private WebDriver webDriver;
 
@@ -16,10 +18,10 @@ public class widgetsQATesting {
         webDriver = new ChromeDriver();
     }
 
-    @AfterTest
+    /*@AfterTest
     private void closeWebDriver() {
         webDriver.quit();
-    }
+    }*/
 
     @Test
     void testSrollAndClickToWidgets() {
@@ -31,5 +33,24 @@ public class widgetsQATesting {
                 .perform();
         webDriver.findElement(By.className("card-body")).click();
         Assert.assertEquals(webDriver.getCurrentUrl(), "https://demoqa.com/elements");
+    }
+
+    @Test
+    void testNotRegisteredUser() throws InterruptedException {
+        webDriver.get("https://portal.311.nyc.gov/");
+        Assert.assertEquals("Home  · NYC311", webDriver.getTitle());
+        webDriver.findElement(By.xpath("//*[@class='btn btn-transparent']")).click();
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofMillis(9000));
+
+        WebElement textBox = webDriver.findElement(By.xpath("//*[@placeholder='Email Address']"));
+        textBox.sendKeys("pasha@gmail.com");
+
+        WebElement texBox2 = webDriver.findElement(By.xpath("//*[@placeholder='Password']"));
+        texBox2.sendKeys("123400");
+
+        webDriver.findElement(By.id("next")).click();
+        Thread.sleep(250);
+        String actual = webDriver.findElement(By.xpath("//div[@class='error pageLevel']//p[@role='alert']")).getText();
+        Assert.assertEquals(actual, "We can't seem to find your account.");
     }
 }
