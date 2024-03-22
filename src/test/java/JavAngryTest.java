@@ -21,10 +21,10 @@ public class JavAngryTest {
         webDriver = new ChromeDriver();
     }
 
-    @AfterTest
+    /*@AfterTest
     private void closeWebDriver() {
         webDriver.quit();
-    }
+    }*/
 
     @Test
     void testElementsTextBoxValidData() {
@@ -90,5 +90,44 @@ public class JavAngryTest {
         String actualText = webDriver.findElement(By.id("doubleClickMessage")).getText();
 
         Assert.assertEquals(actualText, expectedText);
+    }
+
+    @Test
+    public void addingInfoToWebTablesTest() {
+
+        String expectedResult = "John\n" +
+                "Dou\n" +
+                "27\n" +
+                "jm@example.com\n" +
+                "1500\n" +
+                "Marketing";
+
+        webDriver.get(URL);
+        webDriver.findElement(By.xpath("//h5[text()='Elements']")).click();
+        webDriver.findElement(By.xpath("//span[text()='Web Tables']")).click();
+        webDriver.findElement(By.xpath("//button[@id='addNewRecordButton']")).click();
+        WebElement form = webDriver.findElement(By.xpath("//form[@id='userForm']"));
+
+        form.findElement(By.xpath("//input[@id='firstName']")).sendKeys("John");
+        form.findElement(By.xpath("//input[@id='lastName']")).sendKeys("Dou");
+        form.findElement(By.xpath("//input[@id='userEmail']")).sendKeys("jm@example.com");
+        form.findElement(By.xpath("//input[@id='age']")).sendKeys("27");
+        form.findElement(By.xpath("//input[@id='salary']")).sendKeys("1500");
+        form.findElement(By.xpath("//input[@id='department']")).sendKeys("Marketing");
+        form.findElement(By.xpath("//button[@id='submit']")).click();
+
+        List<WebElement> list = form.findElements(By.xpath("//div[@class='rt-table']//div[div[text()='John' and @class='rt-td']]"));
+        StringBuilder resultActual = new StringBuilder();
+
+        for (int i = 0; i < list.size(); i++) {
+            WebElement webElement = list.get(i);
+            if (i < list.size() - 1) {
+                resultActual.append(webElement.getText()).append(" ");
+            } else {
+                resultActual.append(webElement.getText());
+            }
+        }
+
+        Assert.assertEquals(resultActual.toString(), expectedResult);
     }
 }
