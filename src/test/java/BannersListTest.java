@@ -4,35 +4,41 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class BannersListTest {
+
+    private WebDriver webDriver;
+    @BeforeTest
+    public void initWebDriverOptions() {
+    ChromeOptions chromeOptions = new ChromeOptions();
+    webDriver = new ChromeDriver((chromeOptions));
+    chromeOptions.addArguments("--window-size=1920,1080");
+    }
+
+    @AfterTest
+    public void closeWebDriver() {
+        webDriver.quit();
+    }
 
     @Test
     public void testBannersList() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless", "--window-size=1920,1080");
 
-        WebDriver driver = new ChromeDriver(chromeOptions);
-
-        driver.get("https://demoqa.com/");
-
+        webDriver.get("https://demoqa.com/");
 
         List<String> expectedBannerTitles = new ArrayList<>(Arrays.asList("Elements", "Forms", "Alerts, Frame & Windows", "Widgets", "Interactions", "Book Store Application"));
-        List<WebElement> elementList = driver.findElements(By.xpath("//div[@class='card mt-4 top-card']"));
-
+        List<WebElement> elementList = webDriver.findElements(By.xpath("//div[@class='card mt-4 top-card']"));
         List<String> actualBannerTitles = WebElementToString(elementList);
 
 
         Assert.assertEquals(actualBannerTitles, expectedBannerTitles);
         Assert.assertTrue(actualBannerTitles.contains("Book Store Application"));
-
-        driver.quit();
     }
 
     public static List<String> WebElementToString(List<WebElement> elementList) {
