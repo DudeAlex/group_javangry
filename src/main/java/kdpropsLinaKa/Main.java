@@ -5,5 +5,8 @@ public class Main {
         System.out.println("new проект");
         System.out.println("new проект");
         System.out.println("new проект");
+
+        // тренировка pullRequest
+        //and merch
     }
 }
