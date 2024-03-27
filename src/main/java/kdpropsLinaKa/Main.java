@@ -8,5 +8,6 @@ public class Main {
 
         // тренировка pullRequest
         //and merch
+
     }
 }
