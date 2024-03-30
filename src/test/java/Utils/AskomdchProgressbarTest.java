@@ -12,12 +12,12 @@ import org.testng.annotations.Test;
 
 public class AskomdchProgressbarTest {
     private WebDriver driver;
-    final static String URLshoop = "https://askomdch.com/";
+    final static String URL_SHOP = "https://askomdch.com/";
 
     @BeforeMethod
     public void setUp() {
         driver = new ChromeDriver();
-        driver.get(URLshoop);
+        driver.get(URL_SHOP);
         driver.manage().window().maximize();
     }
 
@@ -28,11 +28,11 @@ public class AskomdchProgressbarTest {
 
     @Test
     public void testProgressBar() throws InterruptedException {
-        driver.findElement(By.xpath("//li[@id='menu-item-1228']/descendant::a")).click();
+        driver.findElement(By.xpath("//li[@id='menu-item-1228']")).click();
         WebElement progressLeft = driver.findElement(By.xpath("//*[@id='woocommerce_price_filter-3']/form/div/div/span[1]"));
-        progressBarMove(Keys.ARROW_RIGHT, 3, progressLeft);
+        progressBarMove(Keys.ARROW_RIGHT, progressLeft);
         WebElement progressRight = driver.findElement(By.xpath("//*[@id='woocommerce_price_filter-3']/form/div/div[1]/span[2]"));
-        progressBarMove(Keys.ARROW_LEFT, 3, progressRight);
+        progressBarMove(Keys.ARROW_LEFT, progressRight);
         driver.findElement(By.xpath("//*[@class='button']")).click();
         String expectedLowPrice = driver.findElement(By.xpath("//*[@id='woocommerce_price_filter-3']//div[2]/div[1]/span[1]")).getText();
 
@@ -40,8 +40,8 @@ public class AskomdchProgressbarTest {
         Thread.sleep(10000);
     }
 
-    private void progressBarMove(Keys arrow, int step, WebElement element) {
-        for (int i = 0; i < step; i++) {
+    private void progressBarMove(Keys arrow, WebElement element) {
+        for (int i = 0; i < 3; i++) {
             element.sendKeys(arrow);
         }
     }
