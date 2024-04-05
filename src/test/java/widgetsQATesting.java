@@ -53,4 +53,21 @@ public class widgetsQATesting {
         String actual = webDriver.findElement(By.xpath("//div[@class='error pageLevel']//p[@role='alert']")).getText();
         Assert.assertEquals(actual, "We can't seem to find your account.");
     }
+
+    @Test
+    void testShoppingCardTest() throws InterruptedException {
+        String numberOfItems = "5";
+        String item = "Anchor Bracelet";
+        webDriver.get("https://askomdch.com/");
+        webDriver.findElement(By.xpath("//*[@id='menu-item-1227']")).click();
+
+        webDriver.findElement(By.xpath("//*[text()='" + item + "']")).click();
+        webDriver.findElement(By.xpath("//input[@type='number']")).clear();
+        webDriver.findElement(By.xpath("//input[@type='number']")).sendKeys(numberOfItems);
+
+        webDriver.findElement(By.xpath("//button[@type='submit']")).click();
+        String cartData = webDriver.findElement(By.xpath("(//div[@id='ast-site-header-cart'])[1]//span")).getText();
+
+        Assert.assertEquals(cartData, numberOfItems);
+    }
 }
