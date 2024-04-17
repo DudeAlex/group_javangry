@@ -11,6 +11,7 @@ import java.io.File;
 public abstract class BaseTest {
 
     private WebDriver driver;
+    private final static String URL = "https://www.selenium.dev/selenium/web/";
 
     @BeforeMethod
     protected void beforeMethod() {
