@@ -93,61 +93,62 @@ public class AskomdchMJTest extends BaseTest {
         WebElement billingState = getDriver().findElement(By.xpath("//*[@id='billing_state']"));
 
         String actualStates = billingState.getText();
-        String expectedStates = "Select an option…\n" +
-                "Alabama\n" +
-                "Alaska\n" +
-                "Arizona\n" +
-                "Arkansas\n" +
-                "California\n" +
-                "Colorado\n" +
-                "Connecticut\n" +
-                "Delaware\n" +
-                "District Of Columbia\n" +
-                "Florida\n" +
-                "Georgia\n" +
-                "Hawaii\n" +
-                "Idaho\n" +
-                "Illinois\n" +
-                "Indiana\n" +
-                "Iowa\n" +
-                "Kansas\n" +
-                "Kentucky\n" +
-                "Louisiana\n" +
-                "Maine\n" +
-                "Maryland\n" +
-                "Massachusetts\n" +
-                "Michigan\n" +
-                "Minnesota\n" +
-                "Mississippi\n" +
-                "Missouri\n" +
-                "Montana\n" +
-                "Nebraska\n" +
-                "Nevada\n" +
-                "New Hampshire\n" +
-                "New Jersey\n" +
-                "New Mexico\n" +
-                "New York\n" +
-                "North Carolina\n" +
-                "North Dakota\n" +
-                "Ohio\n" +
-                "Oklahoma\n" +
-                "Oregon\n" +
-                "Pennsylvania\n" +
-                "Rhode Island\n" +
-                "South Carolina\n" +
-                "South Dakota\n" +
-                "Tennessee\n" +
-                "Texas\n" +
-                "Utah\n" +
-                "Vermont\n" +
-                "Virginia\n" +
-                "Washington\n" +
-                "West Virginia\n" +
-                "Wisconsin\n" +
-                "Wyoming\n" +
-                "Armed Forces (AA)\n" +
-                "Armed Forces (AE)\n" +
-                "Armed Forces (AP)";
+        String expectedStates = """
+                Select an option…
+                Alabama
+                Alaska
+                Arizona
+                Arkansas
+                California
+                Colorado
+                Connecticut
+                Delaware
+                District Of Columbia
+                Florida
+                Georgia
+                Hawaii
+                Idaho
+                Illinois
+                Indiana
+                Iowa
+                Kansas
+                Kentucky
+                Louisiana
+                Maine
+                Maryland
+                Massachusetts
+                Michigan
+                Minnesota
+                Mississippi
+                Missouri
+                Montana
+                Nebraska
+                Nevada
+                New Hampshire
+                New Jersey
+                New Mexico
+                New York
+                North Carolina
+                North Dakota
+                Ohio
+                Oklahoma
+                Oregon
+                Pennsylvania
+                Rhode Island
+                South Carolina
+                South Dakota
+                Tennessee
+                Texas
+                Utah
+                Vermont
+                Virginia
+                Washington
+                West Virginia
+                Wisconsin
+                Wyoming
+                Armed Forces (AA)
+                Armed Forces (AE)
+                Armed Forces (AP)""";
 
         Assert.assertEquals(actualStates, expectedStates);
     }
