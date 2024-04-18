@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-import java.io.File;
+import java.time.Duration;
 
 public abstract class BaseTest {
 
@@ -17,16 +17,30 @@ public abstract class BaseTest {
     protected void beforeMethod() {
         try {
             startDriver();
+            getWeb();
         } catch (Exception e) {
             closeDriver();
             throw new RuntimeException(e);
         }
     }
 
-    @AfterMethod
+
+
+    static String getUrl() {
+        return URL;
+    }@AfterMethod
     protected void afterMethod() {
         closeDriver();
     }
+
+    public static void get(WebDriver driver) {
+        driver.get(getUrl());
+    }
+
+    private void getWeb() {
+        get(driver);
+    }
+
 
     private void closeDriver() {
         if (driver != null) {
@@ -36,14 +50,27 @@ public abstract class BaseTest {
         }
     }
 
-    private void startDriver() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("start-maximized");
-        chromeOptions.addArguments("disable-popup-blocking");
-        chromeOptions.addArguments("disable-infobars");
+    private WebDriver startDriver() {
+        driver = createDriver();
+        return driver;
+    }
 
-        chromeOptions.addExtensions(new File("./Extentions/GIGHMMPIOBKLFEPJOCNAMGKKBIGLIDOM_5_21_0_0.crx"));
-        driver = new ChromeDriver(chromeOptions);
+    private WebDriver createDriver() {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("window-size=1920,1080");
+        //chromeOptions.addArguments("disable-popup-blocking");
+        //chromeOptions.addArguments("disable-infobars");
+
+        //chromeOptions.addExtensions(new File("./Extentions/GIGHMMPIOBKLFEPJOCNAMGKKBIGLIDOM_5_21_0_0.crx"));
+
+        WebDriver driver = new ChromeDriver(chromeOptions);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        return driver;
+    }
+
+    protected WebDriver getDriver() {
+        return driver;
     }
 
 }
