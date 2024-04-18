@@ -7,6 +7,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import runner.BaseTest;
 
+import java.util.stream.Collectors;
+
 public class SelectTest extends BaseTest {
 
     void goToSelectPage() {
@@ -32,7 +34,28 @@ public class SelectTest extends BaseTest {
         Thread.sleep(3000);
     }
 
+    @Test
+    public void testMultipleSelect() throws Exception {
 
+        goToSelectPage();
+
+        WebElement selectElement = getDriver().findElement(By.id("selectWithMultipleEqualsMultiple"));
+        Select multiSelect = new Select(selectElement);
+
+        Thread.sleep(2000);
+        multiSelect.deselectByIndex(0);
+        Thread.sleep(2000);
+        multiSelect.selectByIndex(2);
+        Thread.sleep(2000);
+        multiSelect.selectByVisibleText("Cheddar");
+
+        Thread.sleep(3000);
+
+        System.out.println(selectElement.getAttribute("value"));
+        System.out.println(multiSelect.getAllSelectedOptions().stream().map(WebElement::getText).collect(Collectors.toList()));
+
+        Thread.sleep(3000);
+    }
 
 
 
