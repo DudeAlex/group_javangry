@@ -57,7 +57,25 @@ public class SelectTest extends BaseTest {
         Thread.sleep(3000);
     }
 
+    @Test
+    public void testSelectWithMultipleLongList() throws Exception {
+        goToSelectPage();
 
+        WebElement selectElement = getDriver().findElement(By.id("selectWithMultipleLongList"));
+        Select multipleLongList = new Select(selectElement);
+
+        Thread.sleep(3000);
+        multipleLongList.selectByVisibleText("three");
+        Thread.sleep(3000);
+        multipleLongList.selectByVisibleText("five");
+        Thread.sleep(3000);
+        multipleLongList.selectByVisibleText("six");
+
+        System.out.println(selectElement.getAttribute("value"));
+        System.out.println(multipleLongList.getAllSelectedOptions().stream().map(WebElement::getText).collect(Collectors.toList()));
+
+        Thread.sleep(3000);
+    }
 
 
 
