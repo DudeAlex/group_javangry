@@ -145,7 +145,35 @@ public class ActionsTest extends BaseTest {
         Thread.sleep(2000);
     }
 
+    @Test
+    void testColor() throws Exception {
+        goToWebForm();
 
+        final WebElement colorPicker = getDriver().findElement(By.name("my-colors"));
+        System.out.println("color of Picker in the Start: " + colorPicker.getAttribute("value"));
+        Thread.sleep(2000);
+        colorPicker.click();
+        getActions()
+                .sendKeys(Keys.TAB, Keys.TAB, Keys.TAB)
+                .sendKeys("255")
+                .sendKeys(Keys.TAB)
+                .pause(1000)
+                .sendKeys("0")
+                .sendKeys(Keys.TAB)
+                .pause(1000)
+                .sendKeys("0")
+                .pause(1000)
+                .sendKeys(Keys.ENTER)
+                .pause(1000)
+                .perform();
+
+        final String color = colorPicker.getAttribute("value");
+        System.out.println("color of Picker in the End : " + color);
+
+        Assert.assertEquals("#ff0000" , color);
+
+        Thread.sleep(2000);
+    }
 
 
 }
