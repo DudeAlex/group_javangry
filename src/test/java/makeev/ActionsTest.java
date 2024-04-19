@@ -75,8 +75,23 @@ public class ActionsTest extends BaseTest {
                 .perform();
         System.out.println(range.getAttribute("value"));
         Thread.sleep(2000);
-        
-        
+    }
+
+    @Test
+    void testKeyAction() throws Exception {
+        goToWebForm();
+
+        WebElement textAres = getDriver().findElement(By.name("my-textarea"));
+        Thread.sleep(2000);
+        getActions().click(textAres)
+                .keyDown(Keys.SHIFT)
+                .sendKeys("abCDe")
+                .keyUp(Keys.SHIFT)
+                .perform();
+
+        Assert.assertEquals("ABCDE", textAres.getAttribute("value"));
+
+        Thread.sleep(2000);
     }
 
 }
