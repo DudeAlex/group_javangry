@@ -108,6 +108,7 @@ public class ActionsTest extends BaseTest {
                 .release()
                 .perform();
 
+        System.out.println(test1.getLocation());
         Thread.sleep(2000);
     }
 
@@ -118,9 +119,33 @@ public class ActionsTest extends BaseTest {
         WebElement test2 = getDriver().findElement(By.id("test2"));
         getActions()
                 .dragAndDropBy(test2, 200, 300)
-                        .perform();
+                .perform();
+
+        System.out.println(test2.getLocation());
+        Thread.sleep(2000);
+    }
+
+    @Test
+    void testDragAndDropToElement() throws Exception {
+        goToDragAndDrop();
+
+        WebElement test1 = getDriver().findElement(By.id("test1"));
+        System.out.println("test1.getLocation: " + test1.getLocation());
+
+        WebElement test4 = getDriver().findElement(By.id("test4"));
+
+        getActions()
+                .dragAndDrop(test1, test4)
+                .perform();
+
+        System.out.println("test1.getLocation: " + test1.getLocation());
+
+        Assert.assertEquals(test4.getLocation(), test1.getLocation());
 
         Thread.sleep(2000);
     }
+
+
+
 
 }
