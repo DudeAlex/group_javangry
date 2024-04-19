@@ -94,4 +94,23 @@ public class ActionsTest extends BaseTest {
         Thread.sleep(2000);
     }
 
+    @Test
+    void testDragAndDrop() throws Exception {
+        goToDragAndDrop();
+
+        WebElement test1 = getDriver().findElement(By.id("test1"));
+        Thread.sleep(2000);
+        getActions()
+                .clickAndHold(test1)
+                .moveByOffset(100, 50)
+                .pause(1000)
+                .moveByOffset(200, 100)
+                .release()
+                .perform();
+        Thread.sleep(2000);
+
+        System.out.println(test1.getAttribute("value"));
+        //Thread.sleep(2000);
+    }
+
 }
