@@ -1,6 +1,7 @@
 package makeev;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -41,5 +42,41 @@ public class ActionsTest extends BaseTest {
         Thread.sleep(3000);
     }
 
+    @Test
+    void testSliderAction() throws Exception {
+        goToWebForm();
+
+        WebElement range = getDriver().findElement(By.xpath("//input[@name='my-range']"));
+        Thread.sleep(2000);
+        getActions()    // Actions
+                .clickAndHold(range)    // Actions
+                .moveByOffset(-100, 0)  // Actions
+                .release()  // Actions
+                .perform(); // void
+
+        System.out.println(range.getAttribute("value"));
+        Assert.assertEquals("3", range.getAttribute("value"));
+
+        Thread.sleep(2000);
+    }
+    
+    @Test
+    void testRangeClick() throws Exception {
+        goToWebForm();
+        
+        WebElement range = getDriver().findElement(By.name("my-range"));
+
+        final Dimension size = range.getSize();
+        int rangeWidth = size.getWidth();
+        Thread.sleep(2000);
+        getActions().moveToElement(range)
+                .moveByOffset(rangeWidth * 2 / 5, 0)
+                .click()
+                .perform();
+        System.out.println(range.getAttribute("value"));
+        Thread.sleep(2000);
+        
+        
+    }
 
 }
