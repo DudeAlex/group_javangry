@@ -107,10 +107,20 @@ public class ActionsTest extends BaseTest {
                 .moveByOffset(200, 100)
                 .release()
                 .perform();
-        Thread.sleep(2000);
 
-        System.out.println(test1.getAttribute("value"));
-        //Thread.sleep(2000);
+        Thread.sleep(2000);
+    }
+
+    @Test
+    void testDragAndDropBy() throws Exception {
+        goToDragAndDrop();
+
+        WebElement test2 = getDriver().findElement(By.id("test2"));
+        getActions()
+                .dragAndDropBy(test2, 200, 300)
+                        .perform();
+
+        Thread.sleep(2000);
     }
 
 }
