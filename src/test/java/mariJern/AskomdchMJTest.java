@@ -2,6 +2,7 @@ package mariJern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -12,6 +13,14 @@ public class AskomdchMJTest extends BaseTest {
     private static final String URL_CART = "https://askomdch.com/cart/";
     private static final String URL_CheckOut = "https://askomdch.com/checkout/";
     private static final String URL_BOHO = "https://askomdch.com/product/boho-bangle-bracelet/";
+
+
+    private void addBohoToCartAndGotoCheckout() {
+        getDriver().get(URL_BOHO);
+        getDriver().findElement(By.xpath("//button[@name='add-to-cart']")).click();
+        getDriver().findElement(By.className("wc-forward")).click();
+        getDriver().findElement(By.xpath("//div[@class='wc-proceed-to-checkout']")).click();
+    }
 
     @Test
     public void testEmptyCartNoticeText() {
@@ -85,71 +94,93 @@ public class AskomdchMJTest extends BaseTest {
 
     @Test
     public void testStatesList() {
-        getDriver().get(URL_BOHO);
-        getDriver().findElement(By.xpath("//button[@name='add-to-cart']")).click();
-        getDriver().findElement(By.className("wc-forward")).click();
-        getDriver().findElement(By.xpath("//div[@class='wc-proceed-to-checkout']")).click();
+        addBohoToCartAndGotoCheckout();
 
         WebElement billingState = getDriver().findElement(By.xpath("//*[@id='billing_state']"));
 
         String actualStates = billingState.getText();
-        String expectedStates = "Select an option…\n" +
-                "Alabama\n" +
-                "Alaska\n" +
-                "Arizona\n" +
-                "Arkansas\n" +
-                "California\n" +
-                "Colorado\n" +
-                "Connecticut\n" +
-                "Delaware\n" +
-                "District Of Columbia\n" +
-                "Florida\n" +
-                "Georgia\n" +
-                "Hawaii\n" +
-                "Idaho\n" +
-                "Illinois\n" +
-                "Indiana\n" +
-                "Iowa\n" +
-                "Kansas\n" +
-                "Kentucky\n" +
-                "Louisiana\n" +
-                "Maine\n" +
-                "Maryland\n" +
-                "Massachusetts\n" +
-                "Michigan\n" +
-                "Minnesota\n" +
-                "Mississippi\n" +
-                "Missouri\n" +
-                "Montana\n" +
-                "Nebraska\n" +
-                "Nevada\n" +
-                "New Hampshire\n" +
-                "New Jersey\n" +
-                "New Mexico\n" +
-                "New York\n" +
-                "North Carolina\n" +
-                "North Dakota\n" +
-                "Ohio\n" +
-                "Oklahoma\n" +
-                "Oregon\n" +
-                "Pennsylvania\n" +
-                "Rhode Island\n" +
-                "South Carolina\n" +
-                "South Dakota\n" +
-                "Tennessee\n" +
-                "Texas\n" +
-                "Utah\n" +
-                "Vermont\n" +
-                "Virginia\n" +
-                "Washington\n" +
-                "West Virginia\n" +
-                "Wisconsin\n" +
-                "Wyoming\n" +
-                "Armed Forces (AA)\n" +
-                "Armed Forces (AE)\n" +
-                "Armed Forces (AP)";
+        String expectedStates = """
+                Select an option…
+                Alabama
+                Alaska
+                Arizona
+                Arkansas
+                California
+                Colorado
+                Connecticut
+                Delaware
+                District Of Columbia
+                Florida
+                Georgia
+                Hawaii
+                Idaho
+                Illinois
+                Indiana
+                Iowa
+                Kansas
+                Kentucky
+                Louisiana
+                Maine
+                Maryland
+                Massachusetts
+                Michigan
+                Minnesota
+                Mississippi
+                Missouri
+                Montana
+                Nebraska
+                Nevada
+                New Hampshire
+                New Jersey
+                New Mexico
+                New York
+                North Carolina
+                North Dakota
+                Ohio
+                Oklahoma
+                Oregon
+                Pennsylvania
+                Rhode Island
+                South Carolina
+                South Dakota
+                Tennessee
+                Texas
+                Utah
+                Vermont
+                Virginia
+                Washington
+                West Virginia
+                Wisconsin
+                Wyoming
+                Armed Forces (AA)
+                Armed Forces (AE)
+                Armed Forces (AP)""";
 
         Assert.assertEquals(actualStates, expectedStates);
+    }
+
+    @Test
+    public void testSelectStateAndCheckout() throws InterruptedException {
+
+        String expectedText = "Thank you. Your order has been received.";
+
+        addBohoToCartAndGotoCheckout();
+        getDriver().findElement(By.id("billing_first_name")).sendKeys("Joe");
+        getDriver().findElement(By.id("billing_last_name")).sendKeys("Doe");
+
+        final WebElement selectCountry = getDriver().findElement(By.id("billing_country"));
+        Select fromDropdown = new Select(selectCountry);
+        fromDropdown.selectByValue("LV");
+
+        getDriver().findElement(By.id("billing_address_1")).sendKeys("123 Test Street");
+        getDriver().findElement(By.id("billing_city")).sendKeys("Riga");
+        getDriver().findElement(By.id("billing_postcode")).sendKeys("LV-1010");
+        getDriver().findElement(By.id("billing_email")).sendKeys("test@test.com");
+        Thread.sleep(1000);
+        getDriver().findElement(By.id("place_order")).click();
+        Thread.sleep(2000);
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("/html/body/div/div[1]/div/div/main/article/div/div/div/div/div/p")).getText(), expectedText);
     }
 }
 
